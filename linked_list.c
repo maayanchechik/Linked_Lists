@@ -1,23 +1,28 @@
+/* This file includes functions of linked lists, used by hash.c*/
 #include "linked_list.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
-
+/* This function creates a new node with the received counter and file
+   name, and returns a pointer to the new node.*/
 Node* create_node(int counter, char * file_name){
   Node* ptr = (Node*) malloc(sizeof(Node));
+  int length;
   if(ptr == NULL){
     printf("malloc has failed, for file name %s",file_name);
     return NULL;
   }
   ptr -> counter = counter;
-  int length = strlen(file_name);
+  length = strlen(file_name);
   ptr -> file_name = (char*) malloc(length);
   strcpy(ptr->file_name, file_name);
   ptr -> next = NULL;
   return ptr;
 }
 
+/* This function inserts a new node, with the received counter and file
+   name, before the received Node.*/
 void insert(Node** ptr, int counter, char* file_name){
   Node* new_node = create_node(counter, file_name);
   if((*ptr) == NULL){
@@ -36,6 +41,9 @@ int equal_file_name(Node* node_ptr, char* name){
   return !strcmp(node_ptr->file_name, name);
 }
 
+/* This function prints a summary of each Node in the linked list,
+   starting with the recieved Node. The summary describes the file
+   name and counter of each Node.*/
 void print_list(Node* node_ptr){
   int i = 0;
   Node* current = node_ptr;
@@ -56,27 +64,3 @@ void print_list(Node* node_ptr){
   }
   printf("\n");
 }
-/*int main(int argc, char *argv[]){
-  int i;
-  for (i=0; i<argc; i++) {
-    printf("argument %d is [%s]\n", i, argv[i]);
-  }
-  char file1[] = "first_file";
-  char file2[] = "second_file";
-  char file3[] = "third_file";
-
-  Node* head = create_node(1,file1);
-  print_List(head);
-  
-  insert((&head),1,file2);
-  print_List(head);
-  
-  insert((&head),2,file3);
-  print_List(head);
-
-  increase_counter(head);
-  print_List(head);
-  
-  return 1;
-*/
-
